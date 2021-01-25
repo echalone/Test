@@ -1,23 +1,369 @@
 ---
 Module Name: TUN.Logging
 Module Guid: eeac1534-25a5-4429-a073-17ec769525f5
-Download Help Link: {{ Update Download Link }}
-Help Version: {{ Please enter version of help manually (X.X.X.X) format }}
+Module Version: 1.2.0
 Locale: en-US
 ---
 
 # TUN.Logging Module
 ## Description
-{{ Fill in the Description }}
+Provides easy to use file and mail logging. Documentation of module at https://github.com/echalone/TUN/blob/master/PowerShell/Modules/TUN.Logging/TUN.Logging.md
+## Required Modules
+* TUN.Credentials (1.1.0)
+## Content
+* [Description](#description)
+* [Required Modules](#required-modules)
+* [Content](#content)
+* [TUN.Logging Cmdlets](#tun.logging-cmdlets)
+  + [Get-HasLogDebug](#get-haslogdebug)
+    - [SYNOPSIS](#synopsis)
+    - [SYNTAX](#syntax)
+    - [PARAMETERS](#parameters)
+      * [-ConfigurationName](#-configurationname)
+      * [CommonParameters](#commonparameters)
+    - [OUTPUTS](#outputs)
+  + [Get-HasLogError](#get-haslogerror)
+    - [SYNOPSIS](#synopsis-1)
+    - [SYNTAX](#syntax-1)
+    - [PARAMETERS](#parameters-1)
+      * [-ConfigurationName](#-configurationname-1)
+      * [CommonParameters](#commonparameters-1)
+    - [OUTPUTS](#outputs-1)
+  + [Get-HasLogHost](#get-hasloghost)
+    - [SYNOPSIS](#synopsis-2)
+    - [SYNTAX](#syntax-2)
+    - [PARAMETERS](#parameters-2)
+      * [-ConfigurationName](#-configurationname-2)
+      * [CommonParameters](#commonparameters-2)
+    - [OUTPUTS](#outputs-2)
+  + [Get-HasLogInformation](#get-hasloginformation)
+    - [SYNOPSIS](#synopsis-3)
+    - [SYNTAX](#syntax-3)
+    - [PARAMETERS](#parameters-3)
+      * [-ConfigurationName](#-configurationname-3)
+      * [CommonParameters](#commonparameters-3)
+    - [OUTPUTS](#outputs-3)
+  + [Get-HasLogOutput](#get-haslogoutput)
+    - [SYNOPSIS](#synopsis-4)
+    - [SYNTAX](#syntax-4)
+    - [PARAMETERS](#parameters-4)
+      * [-ConfigurationName](#-configurationname-4)
+      * [CommonParameters](#commonparameters-4)
+    - [OUTPUTS](#outputs-4)
+  + [Get-HasLogVerbose](#get-haslogverbose)
+    - [SYNOPSIS](#synopsis-5)
+    - [SYNTAX](#syntax-5)
+    - [PARAMETERS](#parameters-5)
+      * [-ConfigurationName](#-configurationname-5)
+      * [CommonParameters](#commonparameters-5)
+    - [OUTPUTS](#outputs-5)
+  + [Get-HasLogWarning](#get-haslogwarning)
+    - [SYNOPSIS](#synopsis-6)
+    - [SYNTAX](#syntax-6)
+    - [PARAMETERS](#parameters-6)
+      * [-ConfigurationName](#-configurationname-6)
+      * [CommonParameters](#commonparameters-6)
+    - [OUTPUTS](#outputs-6)
+  + [Get-HasMailLogDebug](#get-hasmaillogdebug)
+    - [SYNOPSIS](#synopsis-7)
+    - [SYNTAX](#syntax-7)
+    - [OUTPUTS](#outputs-7)
+  + [Get-HasMailLogError](#get-hasmaillogerror)
+    - [SYNOPSIS](#synopsis-8)
+    - [SYNTAX](#syntax-8)
+    - [PARAMETERS](#parameters-7)
+      * [-ConfigurationName](#-configurationname-7)
+      * [CommonParameters](#commonparameters-7)
+    - [OUTPUTS](#outputs-8)
+  + [Get-HasMailLogHost](#get-hasmailloghost)
+    - [SYNOPSIS](#synopsis-9)
+    - [SYNTAX](#syntax-9)
+    - [OUTPUTS](#outputs-9)
+  + [Get-HasMailLogInformation](#get-hasmailloginformation)
+    - [SYNOPSIS](#synopsis-10)
+    - [SYNTAX](#syntax-10)
+    - [OUTPUTS](#outputs-10)
+  + [Get-HasMailLogOutput](#get-hasmaillogoutput)
+    - [SYNOPSIS](#synopsis-11)
+    - [SYNTAX](#syntax-11)
+    - [OUTPUTS](#outputs-11)
+  + [Get-HasMailLogVerbose](#get-hasmaillogverbose)
+    - [SYNOPSIS](#synopsis-12)
+    - [SYNTAX](#syntax-12)
+    - [OUTPUTS](#outputs-12)
+  + [Get-HasMailLogWarning](#get-hasmaillogwarning)
+    - [SYNOPSIS](#synopsis-13)
+    - [SYNTAX](#syntax-13)
+    - [OUTPUTS](#outputs-13)
+  + [Get-TUNLoggingVersion](#get-tunloggingversion)
+    - [SYNOPSIS](#synopsis-14)
+    - [SYNTAX](#syntax-14)
+    - [PARAMETERS](#parameters-8)
+      * [-AsString](#-asstring)
+      * [CommonParameters](#commonparameters-8)
+    - [OUTPUTS](#outputs-14)
+  + [Send-Log](#send-log)
+    - [SYNOPSIS](#synopsis-15)
+    - [SYNTAX](#syntax-15)
+    - [PARAMETERS](#parameters-9)
+      * [-From](#-from)
+      * [-To](#-to)
+      * [-SmtpServer](#-smtpserver)
+      * [-Subject](#-subject)
+      * [-ConfigurationName](#-configurationname-8)
+      * [-AttachLogFileConfigurations](#-attachlogfileconfigurations)
+      * [-UserName](#-username)
+      * [-Password](#-password)
+      * [-UseSsl](#-usessl)
+      * [-AlwaysSend](#-alwayssend)
+      * [-SendOnError](#-sendonerror)
+      * [-SendOnHost](#-sendonhost)
+      * [-SendOnOutput](#-sendonoutput)
+      * [-SendOnVerbose](#-sendonverbose)
+      * [-SendOnWarning](#-sendonwarning)
+      * [-SendOnDebug](#-sendondebug)
+      * [-SendOnInformation](#-sendoninformation)
+      * [-AttachLogfile](#-attachlogfile)
+      * [-KeepLogging](#-keeplogging)
+      * [-WhatIf](#-whatif)
+      * [-Confirm](#-confirm)
+      * [CommonParameters](#commonparameters-9)
+    - [OUTPUTS](#outputs-15)
+    - [NOTES](#notes)
+  + [Set-ForceLogSend](#set-forcelogsend)
+    - [SYNOPSIS](#synopsis-16)
+    - [SYNTAX](#syntax-16)
+    - [PARAMETERS](#parameters-10)
+      * [-Reason](#-reason)
+      * [-ConfigurationName](#-configurationname-9)
+      * [CommonParameters](#commonparameters-10)
+    - [OUTPUTS](#outputs-16)
+  + [Set-LogFallbackConsoleColors](#set-logfallbackconsolecolors)
+    - [SYNOPSIS](#synopsis-17)
+    - [SYNTAX](#syntax-17)
+    - [DESCRIPTION](#description-1)
+    - [PARAMETERS](#parameters-11)
+      * [-FallbackForegroundColor](#-fallbackforegroundcolor)
+      * [-FallbackBackgroundColor](#-fallbackbackgroundcolor)
+      * [-WhatIf](#-whatif-1)
+      * [-Confirm](#-confirm-1)
+      * [CommonParameters](#commonparameters-11)
+    - [OUTPUTS](#outputs-17)
+  + [Set-MailLogCredentials](#set-maillogcredentials)
+    - [SYNOPSIS](#synopsis-18)
+    - [SYNTAX](#syntax-18)
+    - [DESCRIPTION](#description-2)
+    - [PARAMETERS](#parameters-12)
+      * [-ConfigurationName](#-configurationname-10)
+      * [-CredentialsFile](#-credentialsfile)
+      * [-InitCredentials](#-initcredentials)
+      * [-WhatIf](#-whatif-2)
+      * [-Confirm](#-confirm-2)
+      * [CommonParameters](#commonparameters-12)
+    - [OUTPUTS](#outputs-18)
+    - [NOTES](#notes-1)
+  + [Set-TUNLogging_LocalMode](#set-tunlogging_localmode)
+    - [SYNOPSIS](#synopsis-19)
+    - [SYNTAX](#syntax-19)
+    - [PARAMETERS](#parameters-13)
+      * [-Global](#-global)
+      * [CommonParameters](#commonparameters-13)
+    - [OUTPUTS](#outputs-19)
+  + [Start-Log](#start-log)
+    - [SYNOPSIS](#synopsis-20)
+    - [SYNTAX](#syntax-20)
+    - [DESCRIPTION](#description-3)
+    - [PARAMETERS](#parameters-14)
+      * [-LogPath](#-logpath)
+      * [-LogName](#-logname)
+      * [-LogExtension](#-logextension)
+      * [-ConfigurationName](#-configurationname-11)
+      * [-LogPreference_LogError](#-logpreference_logerror)
+      * [-LogPreference_LogHost](#-logpreference_loghost)
+      * [-LogPreference_LogOutput](#-logpreference_logoutput)
+      * [-LogPreference_LogVerbose](#-logpreference_logverbose)
+      * [-LogPreference_LogWarning](#-logpreference_logwarning)
+      * [-LogPreference_LogDebug](#-logpreference_logdebug)
+      * [-LogPreference_LogInformation](#-logpreference_loginformation)
+      * [-NoFileLog](#-nofilelog)
+      * [-NoTextLog](#-notextlog)
+      * [-NoTimestamp](#-notimestamp)
+      * [-UseComputerPrefix](#-usecomputerprefix)
+      * [-UseScriptPrefix](#-usescriptprefix)
+      * [-UseDefaultName](#-usedefaultname)
+      * [-NoDateTimeFormat](#-nodatetimeformat)
+      * [-DeleteExisting](#-deleteexisting)
+      * [-AsOutput](#-asoutput)
+      * [-Force](#-force)
+      * [-WhatIf](#-whatif-3)
+      * [-Confirm](#-confirm-3)
+      * [CommonParameters](#commonparameters-14)
+    - [OUTPUTS](#outputs-20)
+  + [Start-MailLog](#start-maillog)
+    - [SYNOPSIS](#synopsis-21)
+    - [SYNTAX](#syntax-21)
+    - [DESCRIPTION](#description-4)
+    - [PARAMETERS](#parameters-15)
+      * [-ConfigurationName](#-configurationname-12)
+      * [-CredentialsFile](#-credentialsfile-1)
+      * [-LogPreference_MailError](#-logpreference_mailerror)
+      * [-LogPreference_MailHost](#-logpreference_mailhost)
+      * [-LogPreference_MailOutput](#-logpreference_mailoutput)
+      * [-LogPreference_MailVerbose](#-logpreference_mailverbose)
+      * [-LogPreference_MailWarning](#-logpreference_mailwarning)
+      * [-LogPreference_MailDebug](#-logpreference_maildebug)
+      * [-LogPreference_MailInformation](#-logpreference_mailinformation)
+      * [-AddTimestamp](#-addtimestamp)
+      * [-AsOutput](#-asoutput-1)
+      * [-InitCredentials](#-initcredentials-1)
+      * [-Force](#-force-1)
+      * [-WhatIf](#-whatif-4)
+      * [-Confirm](#-confirm-4)
+      * [CommonParameters](#commonparameters-15)
+    - [OUTPUTS](#outputs-21)
+    - [NOTES](#notes-2)
+  + [Stop-Log](#stop-log)
+    - [SYNOPSIS](#synopsis-22)
+    - [SYNTAX](#syntax-22)
+    - [PARAMETERS](#parameters-16)
+      * [-ConfigurationName](#-configurationname-13)
+      * [-KeepLoggingFile](#-keeploggingfile)
+      * [-KeepLoggingText](#-keeploggingtext)
+      * [-WhatIf](#-whatif-5)
+      * [-Confirm](#-confirm-5)
+      * [CommonParameters](#commonparameters-16)
+    - [OUTPUTS](#outputs-22)
+    - [NOTES](#notes-3)
+  + [Write-DebugLog](#write-debuglog)
+    - [SYNOPSIS](#synopsis-23)
+    - [SYNTAX](#syntax-23)
+    - [PARAMETERS](#parameters-17)
+      * [-Message](#-message)
+      * [-ConfigurationName](#-configurationname-14)
+      * [-NoOut](#-noout)
+      * [-NoLog](#-nolog)
+      * [-NoMail](#-nomail)
+      * [-AddTimestamp](#-addtimestamp-1)
+      * [-Force](#-force-2)
+      * [-ForceMail](#-forcemail)
+      * [-WhatIf](#-whatif-6)
+      * [-Confirm](#-confirm-6)
+      * [CommonParameters](#commonparameters-17)
+    - [OUTPUTS](#outputs-23)
+    - [NOTES](#notes-4)
+  + [Write-ErrorLog](#write-errorlog)
+    - [SYNOPSIS](#synopsis-24)
+    - [SYNTAX](#syntax-24)
+    - [EXAMPLES](#examples)
+      * [EXAMPLE 1](#example-1)
+      * [EXAMPLE 2](#example-2)
+    - [PARAMETERS](#parameters-18)
+      * [-Message](#-message-1)
+      * [-Category](#-category)
+      * [-Err](#-err)
+      * [-ConfigurationName](#-configurationname-15)
+      * [-NoOut](#-noout-1)
+      * [-NoLog](#-nolog-1)
+      * [-NoMail](#-nomail-1)
+      * [-AddTimestamp](#-addtimestamp-2)
+      * [-NoErrorDetails](#-noerrordetails)
+      * [-Force](#-force-3)
+      * [-ForceMail](#-forcemail-1)
+      * [-WhatIf](#-whatif-7)
+      * [-Confirm](#-confirm-7)
+      * [CommonParameters](#commonparameters-18)
+    - [OUTPUTS](#outputs-24)
+    - [NOTES](#notes-5)
+  + [Write-HostLog](#write-hostlog)
+    - [SYNOPSIS](#synopsis-25)
+    - [SYNTAX](#syntax-25)
+    - [PARAMETERS](#parameters-19)
+      * [-Message](#-message-2)
+      * [-ConfigurationName](#-configurationname-16)
+      * [-NoNewline](#-nonewline)
+      * [-ForegroundColor](#-foregroundcolor)
+      * [-BackgroundColor](#-backgroundcolor)
+      * [-NoOut](#-noout-2)
+      * [-NoLog](#-nolog-2)
+      * [-NoMail](#-nomail-2)
+      * [-AddTimestamp](#-addtimestamp-3)
+      * [-Force](#-force-4)
+      * [-ForceMail](#-forcemail-2)
+      * [-WhatIf](#-whatif-8)
+      * [-Confirm](#-confirm-8)
+      * [CommonParameters](#commonparameters-19)
+    - [OUTPUTS](#outputs-25)
+    - [NOTES](#notes-6)
+  + [Write-InformationLog](#write-informationlog)
+    - [SYNOPSIS](#synopsis-26)
+    - [SYNTAX](#syntax-26)
+    - [PARAMETERS](#parameters-20)
+      * [-Message](#-message-3)
+      * [-ConfigurationName](#-configurationname-17)
+      * [-NoOut](#-noout-3)
+      * [-NoLog](#-nolog-3)
+      * [-NoMail](#-nomail-3)
+      * [-AddTimestamp](#-addtimestamp-4)
+      * [-Force](#-force-5)
+      * [-ForceMail](#-forcemail-3)
+      * [-WhatIf](#-whatif-9)
+      * [-Confirm](#-confirm-9)
+      * [CommonParameters](#commonparameters-20)
+    - [OUTPUTS](#outputs-26)
+    - [NOTES](#notes-7)
+  + [Write-OutputLog](#write-outputlog)
+    - [SYNOPSIS](#synopsis-27)
+    - [SYNTAX](#syntax-27)
+    - [PARAMETERS](#parameters-21)
+      * [-Message](#-message-4)
+      * [-ConfigurationName](#-configurationname-18)
+      * [-NoOut](#-noout-4)
+      * [-NoLog](#-nolog-4)
+      * [-NoMail](#-nomail-4)
+      * [-AddTimestamp](#-addtimestamp-5)
+      * [-Force](#-force-6)
+      * [-ForceMail](#-forcemail-4)
+      * [-WhatIf](#-whatif-10)
+      * [-Confirm](#-confirm-10)
+      * [CommonParameters](#commonparameters-21)
+    - [OUTPUTS](#outputs-27)
+    - [NOTES](#notes-8)
+  + [Write-VerboseLog](#write-verboselog)
+    - [SYNOPSIS](#synopsis-28)
+    - [SYNTAX](#syntax-28)
+    - [PARAMETERS](#parameters-22)
+      * [-Message](#-message-5)
+      * [-ConfigurationName](#-configurationname-19)
+      * [-NoOut](#-noout-5)
+      * [-NoLog](#-nolog-5)
+      * [-NoMail](#-nomail-5)
+      * [-AddTimestamp](#-addtimestamp-6)
+      * [-Force](#-force-7)
+      * [-ForceMail](#-forcemail-5)
+      * [-WhatIf](#-whatif-11)
+      * [-Confirm](#-confirm-11)
+      * [CommonParameters](#commonparameters-22)
+    - [OUTPUTS](#outputs-28)
+    - [NOTES](#notes-9)
+  + [Write-WarningLog](#write-warninglog)
+    - [SYNOPSIS](#synopsis-29)
+    - [SYNTAX](#syntax-29)
+    - [PARAMETERS](#parameters-23)
+      * [-Message](#-message-6)
+      * [-ConfigurationName](#-configurationname-20)
+      * [-NoOut](#-noout-6)
+      * [-NoLog](#-nolog-6)
+      * [-NoMail](#-nomail-6)
+      * [-AddTimestamp](#-addtimestamp-7)
+      * [-Force](#-force-8)
+      * [-ForceMail](#-forcemail-6)
+      * [-WhatIf](#-whatif-12)
+      * [-Confirm](#-confirm-12)
+      * [CommonParameters](#commonparameters-23)
+    - [OUTPUTS](#outputs-29)
+    - [NOTES](#notes-10)
 
 ## TUN.Logging Cmdlets
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
-
 ### Get-HasLogDebug
 
 #### SYNOPSIS
@@ -28,18 +374,6 @@ Determines if debug messages were logged to the log file (so far).
 ```
 Get-HasLogDebug [[-ConfigurationName] <String[]>] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -62,25 +396,13 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been debug messages logged to the log file
 
 False...No debug messages have yet been logged to the log file
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasLogError
 
@@ -93,18 +415,6 @@ Determines if errors were logged to the log file (so far).
 Get-HasLogError [[-ConfigurationName] <String[]>] [<CommonParameters>]
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
 #### PARAMETERS
 
 ##### -ConfigurationName
@@ -126,25 +436,13 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been errors logged to the log file
 
 False...No errors have yet been logged to the log file
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasLogHost
 
@@ -157,18 +455,6 @@ Determines if host messages were logged to the log file (so far).
 Get-HasLogHost [[-ConfigurationName] <String[]>] [<CommonParameters>]
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
 #### PARAMETERS
 
 ##### -ConfigurationName
@@ -190,25 +476,13 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been host messages logged to the log file
 
 False...No host messages have yet been logged to the log file
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasLogInformation
 
@@ -221,18 +495,6 @@ Determines if information messages were logged to the log file (so far).
 Get-HasLogInformation [[-ConfigurationName] <String[]>] [<CommonParameters>]
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
 #### PARAMETERS
 
 ##### -ConfigurationName
@@ -254,25 +516,13 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been information messages logged to the log file
 
 False...No information messages have yet been logged to the log file
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasLogOutput
 
@@ -285,18 +535,6 @@ Determines if output messages were logged to the log file (so far).
 Get-HasLogOutput [[-ConfigurationName] <String[]>] [<CommonParameters>]
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
 #### PARAMETERS
 
 ##### -ConfigurationName
@@ -318,25 +556,13 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been output messages logged to the log file
 
 False...No output messages have yet been logged to the log file
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasLogVerbose
 
@@ -349,18 +575,6 @@ Determines if verbose messages were logged to the log file (so far).
 Get-HasLogVerbose [[-ConfigurationName] <String[]>] [<CommonParameters>]
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
 #### PARAMETERS
 
 ##### -ConfigurationName
@@ -382,25 +596,13 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been verbose messages logged to the log file
 
 False...No verbose messages have yet been logged to the log file
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasLogWarning
 
@@ -413,18 +615,6 @@ Determines if warnings were logged to the log file (so far).
 Get-HasLogWarning [[-ConfigurationName] <String[]>] [<CommonParameters>]
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
 #### PARAMETERS
 
 ##### -ConfigurationName
@@ -446,25 +636,13 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been warnings logged to the log file
 
 False...No warnings have yet been logged to the log file
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasMailLogDebug
 
@@ -477,39 +655,13 @@ Determines if debug messages were logged to the mail log (so far).
 Get-HasMailLogDebug
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
-#### PARAMETERS
-
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been debug messages logged to the mail log
 
 False...No debug messages have yet been logged to the mail log
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasMailLogError
 
@@ -521,18 +673,6 @@ Determines if errors were logged to the mail log (so far).
 ```
 Get-HasMailLogError [[-ConfigurationName] <String[]>] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -555,25 +695,13 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been errors logged to the mail log
 
 False...No errors have yet been logged to the mail log
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasMailLogHost
 
@@ -586,39 +714,13 @@ Determines if host messages were logged to the mail log (so far).
 Get-HasMailLogHost
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
-#### PARAMETERS
-
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been host messages logged to the mail log
 
 False...No host messages have yet been logged to the mail log
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasMailLogInformation
 
@@ -631,39 +733,13 @@ Determines if information messages were logged to the mail log (so far).
 Get-HasMailLogInformation
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
-#### PARAMETERS
-
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been information messages logged to the mail log
 
 False...No information messages have yet been logged to the mail log
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasMailLogOutput
 
@@ -676,39 +752,13 @@ Determines if output messages were logged to the mail log (so far).
 Get-HasMailLogOutput
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
-#### PARAMETERS
-
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been output messages logged to the mail log
 
 False...No output messages have yet been logged to the mail log
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasMailLogVerbose
 
@@ -721,39 +771,13 @@ Determines if verbose messages were logged to the mail log (so far).
 Get-HasMailLogVerbose
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
-#### PARAMETERS
-
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been verbose messages logged to the mail log
 
 False...No verbose messages have yet been logged to the mail log
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-HasMailLogWarning
 
@@ -766,39 +790,13 @@ Determines if warnings were logged to the mail log (so far).
 Get-HasMailLogWarning
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
-
-#### PARAMETERS
-
-#### INPUTS
-
 #### OUTPUTS
 
 True....There have been warnings logged to the mail log
 
 False...No warnings have yet been logged to the mail log
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Get-TUNLoggingVersion
 
@@ -810,18 +808,6 @@ Returns version of current TUN.Logging module
 ```
 Get-TUNLoggingVersion [-AsString] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -844,23 +830,11 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 Version of TUN.Logging module
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Send-Log
 
@@ -877,18 +851,6 @@ Send-Log [-From] <String> [-To] <String[]> [[-SmtpServer] <String>] [[-Subject] 
  [-SendOnVerbose] [-SendOnWarning] [-SendOnDebug] [-SendOnInformation] [-AttachLogfile] [-KeepLogging]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -1187,9 +1149,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -1203,8 +1162,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -1220,8 +1177,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None
@@ -1230,15 +1185,7 @@ None
 Once this function has been called, the Write-ErrorLog etc.
 functions will not add any more lines to the mail log.
 
-#### RELATED LINKS
 
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Set-ForceLogSend
 
@@ -1250,18 +1197,6 @@ Sets a flag to trigger the sending of the log mail as soon as Send-Log is called
 ```
 Set-ForceLogSend [[-Reason] <String>] [[-ConfigurationName] <String[]>] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -1300,23 +1235,11 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Set-LogFallbackConsoleColors
 
@@ -1332,15 +1255,6 @@ Set-LogFallbackConsoleColors [[-FallbackForegroundColor] <ConsoleColor>]
 
 #### DESCRIPTION
 Sets global fallback colors for console output (needed fox linux).
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -1379,9 +1293,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -1395,8 +1306,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -1412,23 +1321,11 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Set-MailLogCredentials
 
@@ -1444,15 +1341,6 @@ Set-MailLogCredentials [[-ConfigurationName] <String>] [-CredentialsFile] <Strin
 
 #### DESCRIPTION
 Sets the credentials for mail log sending.
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -1510,9 +1398,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -1526,8 +1411,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -1543,8 +1426,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None
@@ -1558,15 +1439,7 @@ This is because the -WhatIf switch
 cannot be used to make sure the script is not performing its task, because it will also prevent the script from saving the credentials to 
 the credentials file.
 
-#### RELATED LINKS
 
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Set-TUNLogging_LocalMode
 
@@ -1578,18 +1451,6 @@ Sets local mode for TUN Logging (for backwards compatibility)
 ```
 Set-TUNLogging_LocalMode [-Global] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -1612,23 +1473,11 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Start-Log
 
@@ -1650,15 +1499,6 @@ Start-Log [[-LogPath] <String>] [[-LogName] <String>] [[-LogExtension] <String>]
 #### DESCRIPTION
 Once this function has been called, the Write-ErrorLog etc.
 functions will add lines to a log file.
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -2035,9 +1875,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -2051,8 +1888,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -2068,23 +1903,11 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None
 
-#### NOTES
 
-#### RELATED LINKS
-
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Start-MailLog
 
@@ -2106,15 +1929,6 @@ Start-MailLog [[-ConfigurationName] <String>] [[-CredentialsFile] <String>]
 Once this function has been called, the Write-ErrorLog etc.
 functions will add lines to a mail text
 that can later on be sent by mail with the Send-Log command.
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -2364,9 +2178,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -2380,8 +2191,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -2397,8 +2206,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None
@@ -2412,15 +2219,7 @@ This is because the -WhatIf switch
 cannot be used to make sure the script is not performing its task, because it will also prevent the script from saving the credentials to 
 the credentials file.
 
-#### RELATED LINKS
 
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Stop-Log
 
@@ -2433,18 +2232,6 @@ Stops logging process for log file.
 Stop-Log [[-ConfigurationName] <String[]>] [-KeepLoggingFile] [-KeepLoggingText] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -2497,9 +2284,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -2513,8 +2297,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -2530,8 +2312,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None
@@ -2540,15 +2320,7 @@ None
 Once this function has been called, the Write-ErrorLog etc.
 functions will not add any more lines to the file log.
 
-#### RELATED LINKS
 
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Write-DebugLog
 
@@ -2561,18 +2333,6 @@ Emulates Write-Debug but also logs the message in the file and mail log (if appl
 Write-DebugLog [-Message] <Object> [[-ConfigurationName] <String[]>] [-NoOut] [-NoLog] [-NoMail]
  [-AddTimestamp] [-Force] [-ForceMail] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -2701,9 +2461,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -2717,8 +2474,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -2734,8 +2489,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None (Prints debug message)
@@ -2743,15 +2496,7 @@ None (Prints debug message)
 #### NOTES
 Can recieve the message through pipe
 
-#### RELATED LINKS
 
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Write-ErrorLog
 
@@ -2766,17 +2511,17 @@ Write-ErrorLog [[-Message] <String>] [[-Category] <ErrorCategory>] [[-Err] <Erro
  [-ForceMail] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-#### DESCRIPTION
-{{ Fill in the Description }}
-
 #### EXAMPLES
 
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
+##### EXAMPLE 1
+```
+.\Update-Month.ps1 -inputpath C:\Data\January.csv
 ```
 
-{{ Add example description here }}
+##### EXAMPLE 2
+```
+.\Update-Month.ps1 -inputpath C:\Data\January.csv -outputPath C:\Reports\2009\January.csv
+```
 
 #### PARAMETERS
 
@@ -2952,9 +2697,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -2968,8 +2710,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -2985,8 +2725,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None (Prints error message)
@@ -2998,15 +2736,7 @@ catch
     $_ | Write-ErrorLog "Example error message"
 }
 
-#### RELATED LINKS
 
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Write-HostLog
 
@@ -3020,18 +2750,6 @@ Write-HostLog [-Message] <Object> [[-ConfigurationName] <String[]>] [-NoNewline]
  [-ForegroundColor <ConsoleColor>] [-BackgroundColor <ConsoleColor>] [-NoOut] [-NoLog] [-NoMail]
  [-AddTimestamp] [-Force] [-ForceMail] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -3207,9 +2925,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -3223,8 +2938,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -3240,8 +2953,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None (Prints host message)
@@ -3249,15 +2960,7 @@ None (Prints host message)
 #### NOTES
 Can recieve the message through pipe
 
-#### RELATED LINKS
 
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Write-InformationLog
 
@@ -3270,18 +2973,6 @@ Emulates Write-Information but also logs the message in the file and mail log (i
 Write-InformationLog [-Message] <Object> [[-ConfigurationName] <String[]>] [-NoOut] [-NoLog] [-NoMail]
  [-AddTimestamp] [-Force] [-ForceMail] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -3410,9 +3101,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -3426,8 +3114,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -3443,8 +3129,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None (Prints information message)
@@ -3452,15 +3136,7 @@ None (Prints information message)
 #### NOTES
 Can recieve the message through pipe
 
-#### RELATED LINKS
 
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Write-OutputLog
 
@@ -3473,18 +3149,6 @@ Emulates Write-Output but also logs the message in the file and mail log (if app
 Write-OutputLog [-Message] <Object> [[-ConfigurationName] <String[]>] [-NoOut] [-NoLog] [-NoMail]
  [-AddTimestamp] [-Force] [-ForceMail] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -3613,9 +3277,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -3629,8 +3290,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -3646,8 +3305,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None (Prints output message)
@@ -3655,15 +3312,7 @@ None (Prints output message)
 #### NOTES
 Can recieve the message through pipe
 
-#### RELATED LINKS
 
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Write-VerboseLog
 
@@ -3676,18 +3325,6 @@ Emulates Write-Verbose but also logs the message in the file and mail log (if ap
 Write-VerboseLog [-Message] <Object> [[-ConfigurationName] <String[]>] [-NoOut] [-NoLog] [-NoMail]
  [-AddTimestamp] [-Force] [-ForceMail] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -3816,9 +3453,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -3832,8 +3466,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -3849,8 +3481,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None (Prints verbose message)
@@ -3858,15 +3488,7 @@ None (Prints verbose message)
 #### NOTES
 Can recieve the message through pipe
 
-#### RELATED LINKS
 
-
----
-external help file: TUN.Logging-help.xml
-Module Name: TUN.Logging
-online version:
-schema: 2.0.0
----
 
 ### Write-WarningLog
 
@@ -3879,18 +3501,6 @@ Emulates Write-Warning but also logs the message in the file and mail log (if ap
 Write-WarningLog [-Message] <Object> [[-ConfigurationName] <String[]>] [-NoOut] [-NoLog] [-NoMail]
  [-AddTimestamp] [-Force] [-ForceMail] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
-
-#### DESCRIPTION
-{{ Fill in the Description }}
-
-#### EXAMPLES
-
-##### Example 1
-```powershell
-PS C:\> {{ Add example code here }}
-```
-
-{{ Add example description here }}
 
 #### PARAMETERS
 
@@ -4019,9 +3629,6 @@ Accept wildcard characters: False
 ```
 
 ##### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -4035,8 +3642,6 @@ Accept wildcard characters: False
 ```
 
 ##### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
@@ -4052,8 +3657,6 @@ Accept wildcard characters: False
 ##### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
-#### INPUTS
-
 #### OUTPUTS
 
 None (Prints warning message)
@@ -4061,6 +3664,5 @@ None (Prints warning message)
 #### NOTES
 Can recieve the message through pipe
 
-#### RELATED LINKS
 
 
